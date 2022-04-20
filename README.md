@@ -12,7 +12,7 @@ interact with each other and solve the problems
 
 ## Authors
 
-- [@hari](https://www.github.com/madhav)
+- [@hari](https://www.github.com/madhav008)
 
 
 ## Deployment
