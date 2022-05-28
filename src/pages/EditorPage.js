@@ -4,6 +4,7 @@ import ACTIONS from '../Actions';
 import Client from '../components/Client';
 import Editor from '../components/Editor';
 import { initSocket } from '../socket';
+import axios from 'axios';
 import {
     useLocation,
     useNavigate,
@@ -72,6 +73,29 @@ const EditorPage = () => {
             socketRef.current.off(ACTIONS.DISCONNECTED);
         };
     }, []);
+   
+
+    const [language, setLanguage] = useState("java");
+    const [code, setCode] = useState("");
+    const [input, setInput] = useState("");
+    const [outputLogs, setOutputLogs] = useState("");
+    const [status, setStatus] = useState("Run Code");
+
+     function runCode() {
+        console.log(code)
+        setStatus("Loading...");
+        axios.post(`/runCode`, { language, code, input }).then((res) => {
+            if (res.data.memory && res.data.cpuTime) {
+                setOutputLogs("");
+                setOutputLogs(
+                  `Memory Used: ${res.data.memory} \nCPU Time: ${res.data.cpuTime} \n${res.data.output} `
+                );
+            } else {
+                setOutputLogs(`${res.data.output} `);
+            }
+              setStatus("Run");
+        })
+    }
 
     async function copyRoomId() {
         try {
@@ -125,8 +149,29 @@ const EditorPage = () => {
                     roomId={roomId}
                     onCodeChange={(code) => {
                         codeRef.current = code;
+                        setCode(code)
                     }}
                 />
+            </div>
+            <div className="aside">
+                <div className="asideInner">
+                    <div className="logo">
+                        <img
+                            className="logoImage"
+                            src="/code-sync.png"
+                            alt="logo"
+                        />
+                    </div>
+                    <h3>Output</h3>
+                    <span>
+                        {outputLogs}
+                    </span>
+                  
+                </div>
+
+                <button className="btn leaveBtn" onClick={runCode}>
+                   {status}
+                </button>
             </div>
         </div>
     );
