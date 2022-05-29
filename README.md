@@ -28,6 +28,6 @@ To deploy this project run
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`REAT_APP_BACKEND_URL="localhost:5000"`
+`REACT_APP_BACKEND_URL=localhost:5000`
 
 
