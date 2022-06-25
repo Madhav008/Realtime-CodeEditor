@@ -7,9 +7,16 @@ const ACTIONS = require('./src/Actions');
 
 // Project Imports
 const routes = require('./routes')
+//Import dotenv
+
+
 
 const server = http.createServer(app);
 const io = new Server(server);
+
+const dotenv = require('dotenv');
+dotenv.config();
+
 if (process.env.NODE_ENV === 'production') {
     // Set static folder
     app.use(express.static('build'));
@@ -119,5 +126,5 @@ io.on('connection', (socket) => {
     });
 });
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+const BackendPort = process.env.Backend_Port || 5000;
+server.listen(BackendPort, () => console.log(`Listening on port ${BackendPort}`));
