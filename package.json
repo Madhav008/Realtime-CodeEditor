@@ -2,6 +2,7 @@
   "name": "realtime-editor",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://[::1]:1234",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
@@ -27,10 +28,10 @@
   },
   "scripts": {
     "start-front": "react-scripts start",
-    "start": "npm run start-front && npm run server-dev",
+    "start": "npm run start-front && npm run server-prod",
     "build": "react-scripts build",
     "server-dev": "nodemon server.js",
-    "server:prod": "node server.js",
+    "server-prod": "node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

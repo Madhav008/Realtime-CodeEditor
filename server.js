@@ -8,14 +8,12 @@ const ACTIONS = require('./src/Actions');
 // Project Imports
 const routes = require('./routes')
 //Import dotenv
-
-
+const dotenv = require('dotenv');
+dotenv.config();
 
 const server = http.createServer(app);
 const io = new Server(server);
 
-const dotenv = require('dotenv');
-dotenv.config();
 
 if (process.env.NODE_ENV === 'production') {
     // Set static folder
@@ -58,8 +56,9 @@ io.on('connection', (socket) => {
             users[roomID] = [socket.id];
         }
         socketToRoom[socket.id] = roomID;
-        const usersInThisRoom = users[roomID].filter(id => id !== socket.id);
 
+        //Users in the room without itself 
+        const usersInThisRoom = users[roomID].filter(id => id !== socket.id);
         socket.emit("all users", usersInThisRoom);
     });
 
